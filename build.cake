@@ -45,7 +45,7 @@ Task("Version")
 	GitVersion(new GitVersionSettings{
 		UpdateAssemblyInfo = true,
 		OutputType = GitVersionOutput.BuildServer,
-		RepositoryPath = ".."
+		WorkingDirectory = ".."
 	});
 	versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
 		
@@ -75,7 +75,6 @@ Task("Symbols")
 });*/
 
 Task("Restore-NuGet-Packages")
-    .IsDependentOn("Clean")
     .Does(() =>
 {
 	var settings = new DotNetCoreRestoreSettings 
@@ -87,10 +86,11 @@ Task("Restore-NuGet-Packages")
 });
 
 Task("Build")
+	.IsDependentOn("Clean")
 	.IsDependentOn("Version")
 	.IsDependentOn("ReleaseNotes")
 //	.IsDependentOn("Symbols")
-    .IsDependentOn("Restore-NuGet-Packages")
+	.IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
 	var settings = new DotNetCoreBuildSettings
