@@ -103,12 +103,16 @@ Task("Build")
 Task("Test-CI")
     .Does(() =>
 {
-	var settings = new DotNetCoreTestSettings
-    {
-		Configuration = configuration
-    };
-
-	DotNetCoreTest(sln, settings);
+	foreach (var test in System.IO.Directory.GetFiles("../tests/", "*.Tests.csproj", SearchOption.AllDirectories))
+	{
+		var settings = new DotNetCoreTestSettings
+		{
+			Configuration = configuration,
+			NoBuild = true
+		};
+	
+		DotNetCoreTest(test, settings);
+	}
 });
 
 Task("Test")
