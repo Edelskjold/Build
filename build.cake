@@ -47,7 +47,11 @@ Task("Version")
 		OutputType = GitVersionOutput.BuildServer,
 		WorkingDirectory = ".."
 	});
-	versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
+	versionInfo = GitVersion(new GitVersionSettings{
+		UpdateAssemblyInfo = true,
+		OutputType = GitVersionOutput.Json,
+		WorkingDirectory = ".."
+	});
 		
 	// Update version
 	var updatedVersionProps = System.IO.File.ReadAllText(versionPropsTemplate)
