@@ -44,7 +44,8 @@ Task("Version")
 {
 	GitVersion(new GitVersionSettings{
 		UpdateAssemblyInfo = true,
-		OutputType = GitVersionOutput.BuildServer
+		OutputType = GitVersionOutput.BuildServer,
+		RepositoryPath = ".."
 	});
 	versionInfo = GitVersion(new GitVersionSettings{ OutputType = GitVersionOutput.Json });
 		
