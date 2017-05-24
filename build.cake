@@ -108,7 +108,8 @@ Task("Test-CI")
 		var settings = new DotNetCoreTestSettings
 		{
 			Configuration = configuration,
-			NoBuild = true
+			NoBuild = true,
+			ArgumentCustomization = args=>args.Append("--logger \"trx;LogFileName=TestResults.trx\""),
 		};
 	
 		DotNetCoreTest(test, settings);
