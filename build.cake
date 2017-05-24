@@ -108,7 +108,7 @@ Task("Test-CI")
 		Configuration = configuration
     };
 
-	DotNetCoreTest("./../Tests/*", settings);
+	DotNetCoreTest(sln, settings);
 });
 
 Task("Test")
