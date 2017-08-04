@@ -105,6 +105,18 @@ Task("Build")
 	DotNetCoreBuild(sln, settings);
 });
 
+Task("Publish")
+	.IsDependentOn("Build")
+	.Does(() =>
+{
+	var settings = new DotNetCorePublishSettings
+    {
+		Configuration = configuration
+    };
+
+	DotNetCorePublish(sln, settings);
+});
+
 Task("Test-CI")
     .Does(() =>
 {
