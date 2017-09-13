@@ -16,6 +16,8 @@ var nugetSources = new[] {"https://nuget.sahbdev.dk/nuget", "https://api.nuget.o
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var sln = Argument("sln", "");
+var nugetPushSource = Argument("nuget_push_source", "https://nuget.sahbdev.dk/nuget");
+var nugetAPIKey = Argument("nuget_push_apikey", "");
 
 //////////////////////////////////////////////////////////////////////
 // Solution
@@ -136,6 +138,24 @@ Task("Test-CI")
 Task("Test")
 	.IsDependentOn("Build")
     .IsDependentOn("Test-CI");
+
+Task("NugetPush-CI")
+	.Does(() =>
+{
+	var settings = new NuGetPushSettings
+	{
+		Source = nugetPushSource,
+		ApiKey = nugetAPIKey
+	};
+	
+	var packages =  GetFiles("./../src/**/*.nupkg");
+	
+	NuGetPush(packages, settings);
+});
+
+Task("NugetPush")
+	.IsDependentOn("Test")
+	.IsDependentOn("NugetPush-CI");
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
