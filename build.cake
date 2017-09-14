@@ -16,6 +16,7 @@ var nugetSources = new[] {"https://nuget.sahbdev.dk/nuget", "https://api.nuget.o
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var sln = Argument("sln", "");
+var disableVersion = Argument("disableVersion", "");
 var nugetPushSource = Argument("nuget_push_source", "https://nuget.sahbdev.dk/nuget");
 var nugetAPIKey = Argument("nuget_push_apikey", "");
 
@@ -44,6 +45,9 @@ GitVersion versionInfo = null;
 Task("Version")
     .Does(() => 
 {
+	if (disableVersion == "1")
+		return;
+	
 	GitVersion(new GitVersionSettings{
 		UpdateAssemblyInfo = false,
 		OutputType = GitVersionOutput.BuildServer,
@@ -68,7 +72,9 @@ Task("ReleaseNotes")
 	using(var process = StartAndReturnProcess("git", new ProcessSettings { Arguments = "log --pretty=%s --first-parent", RedirectStandardOutput = true })) {
 		process.WaitForExit();
 		
-		System.IO.File.WriteAllText("../releasenotes.md", "# " + versionInfo.NuGetVersion + "\n");
+		if (disableVersion != "1")
+			System.IO.File.WriteAllText("../releasenotes.md", "# " + versionInfo.NuGetVersion + "\n");
+		
 		System.IO.File.AppendAllLines("../releasenotes.md", process.GetStandardOutput());
 	}
 });
