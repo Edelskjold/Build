@@ -45,12 +45,12 @@ Task("Version")
     .Does(() => 
 {
 	GitVersion(new GitVersionSettings{
-		UpdateAssemblyInfo = true,
+		UpdateAssemblyInfo = false,
 		OutputType = GitVersionOutput.BuildServer,
 		WorkingDirectory = ".."
 	});
 	versionInfo = GitVersion(new GitVersionSettings{
-		UpdateAssemblyInfo = true,
+		UpdateAssemblyInfo = false,
 		OutputType = GitVersionOutput.Json,
 		WorkingDirectory = ".."
 	});
