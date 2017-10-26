@@ -1,5 +1,4 @@
 #tool "nuget:?package=GitVersion.CommandLine"
-//#tool "nuget:?package=gitlink"
 
 //////////////////////////////////////////////////////////////////////
 // CONFIGURATIONS
@@ -74,13 +73,6 @@ Task("ReleaseNotes")
 	}
 });
 
-/*
-Task("Symbols")
-	.Does(() =>
-{
-	GitLink("./");
-});*/
-
 Task("Restore-NuGet-Packages")
     .Does(() =>
 {
@@ -96,7 +88,6 @@ Task("Build")
 	.IsDependentOn("Clean")
 	.IsDependentOn("Version")
 	.IsDependentOn("ReleaseNotes")
-//	.IsDependentOn("Symbols")
 	.IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
