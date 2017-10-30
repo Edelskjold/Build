@@ -119,6 +119,10 @@ if ((Test-Path $PSScriptRoot) -and !(Test-Path $TOOLS_DIR)) {
     New-Item -Path $TOOLS_DIR -Type directory | out-null
 }
 
+# Set TLS12 up
+$AllProtocols = [System.Net.SecurityProtocolType]'Tls12'
+[System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
+
 # Make sure that packages.config exist.
 if (!(Test-Path $PACKAGES_CONFIG)) {
     Write-Verbose -Message "Downloading packages.config..."
