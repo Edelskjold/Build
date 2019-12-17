@@ -86,8 +86,8 @@ Task("Restore-NuGet-Packages")
 
 Task("Build")
 	.IsDependentOn("Clean")
-	.IsDependentOn("Version")
-	.IsDependentOn("ReleaseNotes")
+//	.IsDependentOn("Version")
+//	.IsDependentOn("ReleaseNotes")
 	.IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
