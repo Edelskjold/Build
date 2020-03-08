@@ -6,7 +6,8 @@
 
 var versionPropsTemplate = "./Version.props.template";
 var versionProps = "./../Version.props";
-var nugetSources = new[] {"https://nuget.sahbdev.dk/nuget", "https://api.nuget.org/v3/index.json"};
+//var nugetSources = new[] {"https://nuget.sahbdev.dk/nuget", "https://api.nuget.org/v3/index.json"};
+var nugetSources = new[] {"https://api.nuget.org/v3/index.json"};
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -15,7 +16,7 @@ var nugetSources = new[] {"https://nuget.sahbdev.dk/nuget", "https://api.nuget.o
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var sln = Argument("sln", "");
-var nugetPushSource = Argument("nuget_push_source", "https://nuget.sahbdev.dk/nuget");
+var nugetPushSource = Argument("nuget_push_source", "https://nuget222.sahbdev.dk/nuget");
 var nugetAPIKey = Argument("nuget_push_apikey", "");
 
 //////////////////////////////////////////////////////////////////////
